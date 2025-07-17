@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Library | StoryVerse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Background video styles */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+      filter: brightness(100%);
+    }
+
+    /* Main content layering */
+    body {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding-bottom: 80px;
+    }
+
+    .remove-btn {
+      margin-top: 8px;
+      background-color: #B6D8F7;
+      color:#B6D8F7;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #B6D8F7;
+    }
+
+    #searchInput {
+      padding: 10px;
+      margin: 20px auto;
+      display: block;
+      width: 80%;
+      font-size: 1rem;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .story-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 15px;
+      width: 250px;
+      transition: transform 0.2s;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      backdrop-filter: blur(5px);
+    }
+
+    .story-card:hover {
+      transform: scale(1.03);
+    }
+
+    .story-card img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    header, nav, footer {
+      padding: 10px;
+    
+    }
+
+    .btn {
+      margin: 5px;
+      padding: 8px 14px;
+      background-color: #fff;
+      color: #333;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔊 Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://media.istockphoto.com/id/1492565568/video/cartoon-animation-of-children-reading-book.mp4?s=mp4-640x640-is&k=20&c=omK_Gme2AN91nf7-EWCERQG2NVtmKYj7oOANQi6YbZo=" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <header>💖 My Library</header>
+
+  <nav>
+    <a href="index.html" class="btn">🏠 Home</a>
+    <a href="stories.html" class="btn">📖 Read Stories</a>
+  </nav>
+
+  <!-- 🔍 Search Bar -->
+  <input type="text" id="searchInput" placeholder="Search your stories..." oninput="filterStories()">
+
+  <!-- 📚 Saved Stories Container -->
+  <div class="container" id="storyContainer"></div>
+
+  <footer>StoryVerse 📚</footer>
+
+  <script>
+    function getSavedStories() {
+      return JSON.parse(localStorage.getItem("savedStories") || "[]");
+    }
+
+    function removeFromLibrary(id) {
+      let saved = getSavedStories().filter(sid => sid !== id);
+      localStorage.setItem("savedStories", JSON.stringify(saved));
+      loadLibrary();
+    }
+
+    function loadLibrary() {
+      const container = document.getElementById("storyContainer");
+      container.innerHTML = "";
+      const savedIDs = getSavedStories();
+      const savedStories = stories.filter(story => savedIDs.includes(story.id));
+
+      if (savedStories.length === 0) {
+        container.innerHTML = "<p style='text-align:center;width:100%'>You haven't saved any stories yet 💔</p>";
+        return;
+      }
+
+      savedStories.forEach(story => {
+        const card = document.createElement("div");
+        card.className = "story-card";
+        card.innerHTML = `
+          <img src="${story.image}" alt="${story.title}">
+          <h3>${story.title}</h3>
+          <p>${story.text.slice(0, 60)}...</p>
+          <button class="remove-btn" onclick="removeFromLibrary('${story.id}')">🗑 Remove</button>
+        `;
+
+        card.addEventListener("click", (e) => {
+          if (e.target.classList.contains('remove-btn')) return;
+          localStorage.setItem("selectedStory", JSON.stringify(story));
+          window.location.href = "reader.html";
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    function filterStories() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll(".story-card");
+
+      cards.forEach(card => {
+        const title = card.querySelector("h3").innerText.toLowerCase();
+        const content = card.querySelector("p").innerText.toLowerCase();
+        card.style.display = (title.includes(input) || content.includes(input)) ? "block" : "none";
+      });
+    }
+
+    window.onload = () => {
+      if (typeof stories !== "undefined") {
+        loadLibrary();
+      } else {
+        setTimeout(() => {
+          if (typeof stories !== "undefined") loadLibrary();
+        }, 300);
+      }
+    };
+  </script>
+
+  <!-- Global Story List -->
+  <script src="script.js"></script>
+</body>
+</html>

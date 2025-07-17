@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Story Reader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <button onclick="history.back()" class="btn">← Back</button>
+
+  <div class="reader-container">
+    <h2 id="readerTitle"></h2>
+    <img id="readerImage" />
+    <p id="readerText"></p>
+  </div>
+
+  <script>
+    const story = JSON.parse(localStorage.getItem("selectedStory"));
+
+    if (story) {
+      document.getElementById("readerTitle").innerText = story.title;
+      document.getElementById("readerImage").src = story.image;
+      document.getElementById("readerText").innerText = story.text;
+    } else {
+      document.querySelector(".reader-container").innerHTML = "<p>No story found.</p>";
+    }
+  </script>
+</body>
+</html>

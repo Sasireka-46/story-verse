@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StoryVerse 📚</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General body layout */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+      color: #82fac2;
+    }
+
+    /* Background video setup */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      font-size: 2rem;
+      padding: 20px;
+      font-weight: bold;
+      animation: fadeInDown 1.2s ease-in-out;
+    }
+
+    main.home {
+      text-align: center;
+      margin-top: 60px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    main.home h1 {
+      font-size: 3rem;
+      color: #08465f;
+      animation: slideUp 1.2s ease-in-out;
+    }
+
+    main.home p {
+      font-size: 1.3rem;
+      margin: 20px auto;
+      max-width: 500px;
+      color: hsl(180, 79%, 29%);
+      animation: slideUp 1.6s ease-in-out;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+      animation: fadeInUp 2s ease-in-out;
+    }
+
+    .btn {
+      text-decoration: none;
+      background-color: #036825;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #05661a;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #070101;
+      font-size: 0.9rem;
+      padding: 10px;
+      animation: fadeInUp 2.4s ease-in-out;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Background video element -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://cdn.pixabay.com/video/2021/10/21/92725-637669258_large.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <header>📚 StoryVerse</header>
+
+  <main class="home">
+    <h1>Welcome to StoryVerse!.....</h1>
+    <p>Read magical stories and save your favorites to your personal library 💖</p>
+    <div class="buttons">
+      <a href="stories.html" class="btn">Read Stories</a>
+      <a href="library.html" class="btn">My Library</a>
+    </div>
+  </main>
+
+  <footer>Made with 💕 by Sasireka</footer>
+</body>
+</html>

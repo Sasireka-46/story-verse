@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Read Stories | StoryVerse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .video-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Background Video -->
+  <video autoplay muted loop playsinline id="bgVideo">
+    <source src="https://cdn.pixabay.com/video/2019/09/12/26796-359604154_tiny.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="video-overlay"></div>
+
+  <!-- Original content untouched -->
+  <header>📖 Stories</header>
+  <nav>
+    <a href="index.html" class="btn">🏠 Home</a>
+    <a href="library.html" class="btn">💖 My Library</a>
+  </nav>
+
+  <div style="text-align: center; margin: 20px;">
+    <input type="text" id="searchInput" placeholder="🔍 Search stories..." oninput="filterStories()" style="padding: 10px; width: 80%; max-width: 400px; border-radius: 20px; border: 2px solid #ffd1e8;" />
+  </div>
+
+  <div class="container" id="storyContainer"></div>
+
+  <footer>StoryVerse 📚</footer>
+  <script src="script.js"></script>
+</body>
+</html>
+
